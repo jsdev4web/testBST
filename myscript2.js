@@ -27,14 +27,12 @@ class BinarySearchTree{
         //console.log(root)
 
 
-        //let lSide = nums.slice(0, mid-1)
-        //console.log(lSide, "left side, unused")
+        let lSide = nums.slice(0, mid)
+        console.log(lSide, "left side, unused")
 
-        //let rSide = nums.slice(mid+1, nums.length-1)
-        //console.log(rSide, "right side unused")
-            
-            let lSide = nums.slice(0, mid-1)
-            let rSide = nums.slice(mid+1, nums.length-1)
+        let rSide = nums.slice(mid  + 1, nums.length)
+        console.log(rSide, "right side unused")
+          
 
             
             let queue = [root, [lSide, rSide]]
@@ -42,13 +40,13 @@ class BinarySearchTree{
         
         //console.log(nums.length) while 7 > 0
         while (nums.length > 0){
-            console.log(lSide[0], "lside ")
-            console.log(rSide[0], "rside ")
-            if (lSide[0] < rSide[0] && root !== null){
             
-            let mid = nums.length / 2
+            if (lSide.length && rSide.length !== null && root !== null){
+            
             //the value is the first num in the array
             let data = nums.shift()
+            //console.log(data)
+            //console.log(nums)
             let child = new Node(data)
 
             if (nums[0] < root.value){
