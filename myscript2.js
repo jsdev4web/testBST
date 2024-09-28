@@ -40,22 +40,42 @@ class BinarySearchTree{
         
         //console.log(nums.length) while 7 > 0
         while (nums.length > 0){
+            let parent = root
             
             if (lSide.length && rSide.length !== null && root !== null){
+                if(lSide.length >= 3){
+                    let lmid = Math.floor(lSide.length / 2)
+                    parent.left = lmid
+                } else if(lSide[0] < lSide[1]){
+                    parent.left
+                } else if(lSide[0] > lSide[1]){
+                    parent.right
+                } 
+
+                else if(rSide.length >= 3){
+                    let rmid = Math.floor(rSide.length / 2)
+                    parent.left = rmid
+                } else if(rSide[0] < rSide[1]){
+                    parent.left
+                } else if(rSide[0] > rSide[1]){
+                    parent.right
+                } 
+
+            }
             
             //the value is the first num in the array
             let data = nums.shift()
             //console.log(data)
             //console.log(nums)
-            let child = new Node(data)
+            //let child = new Node(data)
 
-            if (nums[0] < root.value){
-                root.left = new Node(data)
-                } else {
-                    root.right = child
-                }
+            //if (nums[0] < root.value){
+              //  root.left = new Node(data)
+               // } else {
+                //    root.right = child
+                //}
 
-            } //if loop below then while
+           // } //if loop below then while
         }
 
         return root
