@@ -48,13 +48,14 @@ class BinarySearchTree{
             
             let parent = root
             //let child = new Node(value)
-            if 
+        
             // how to decide which side am I working on
+
         }
-        return root     
-    }
-           
-}
+        return root
+        
+    }// funct
+} //class
 
 
 

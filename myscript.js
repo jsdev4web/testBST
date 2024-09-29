@@ -55,8 +55,12 @@ class BinarySearchTree{
                 let parent = new Node(lMid)
                 root.left = parent //everything DIES HERE
                 //buildtree(lSide)
+
+                //I would like to return the function after the while 
+                //loop until the queue is empty but I am having no luc
+                //doing so
                 
-            } else if (lSide <= 3 && lSide != null){
+            }  if (lSide <= 3 && lSide != null){
                
                 if(lSide[0] < lSide[1]){
                     let child = new Node(lSide[0])
