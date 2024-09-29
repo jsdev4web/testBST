@@ -25,34 +25,69 @@ class BinarySearchTree{
         root = new Node(nums[mid])
         //console.log(root)
 
-
-        let lSide = nums.slice(0, mid-1)
+        let lSide = nums.slice(0, mid)
         console.log(lSide, "left side, unused")
 
-        let rSide = nums.slice(mid+1, nums.length-1)
+        let rSide = nums.slice(mid  + 1, nums.length)
         console.log(rSide, "right side unused")
-
         
+        console.log(lSide.length, rSide.length)
+         //while there is something in the queue of each mini array
 
-       //console.log(nums.length) while 7 > 0
-        while (nums.length > 0){
-            
-            let mid = nums.length / 2
-            //the value is the first num in the array
-            let data = nums.shift()
+        //total length of array to use as a counter
+        let totalLength = lSide.length + rSide.length
+        console.log(totalLength)
 
-            let child = new Node(data)
-            if (nums[0] < root.value){
-                root.left = new Node(data)
-                } else {
-                    root.right = child
+        let i = 0;
+
+
+        while(totalLength >= i){
+            i++ //console.log(i) I got 7 loops through
+
+            //if left side greater 3 and not = null
+            if (lSide.length >= 3 && lSide.length != null){
+                //Get the middle of the left side
+
+                let lMid = Math.ceil(lSide.length / 2)
+                //console.log(lMid)
+                
+
+                let parent = new Node(lMid)
+                root.left = parent //everything DIES HERE
+                //buildtree(lSide)
+                
+            } else if (lSide <= 3 && lSide != null){
+               
+                if(lSide[0] < lSide[1]){
+                    let child = new Node(lSide[0])
+                    parent.left = child
+                } else if (lSide[0] > lSide[1]){
+                    let child = new Node(lSide[1])
+                    parent.right = child
+                } else if (rSide.length >= 3 && rSide.length != null){
+                    //Get the middle of the left side
+                    
+                    let rMid = Math.ceil(rSide.length / 2)
+                    console.log(rMid)
+    
+                    let parent = new Node(rMid)
+                    root.left = parent
                 }
-        }
 
+                  else if (rSide <= 3 && rSide != null){
+                    if(rSide[0] < rSide[1]){
+                        let child = new Node(rSide[0])
+                        parent.left = child
+                    } else if (rSide[0] > rSide[1]){
+                        let child = new Node(rSide[1])
+                    }
+                }
+            }
+        }//while
         return root
-    }
-           
-}
+        
+    }//funct
+} //class
 
 
 

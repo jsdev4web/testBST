@@ -45,34 +45,11 @@ class BinarySearchTree{
         //while the length is still there
         while (nums.length > i){
             i++ //add 1 to the counter until length of array
-
             
             let parent = root
             //let child = new Node(value)
-            
-            //if array left and array right not null and root not equal null
-            if (lSide.length && rSide.length !== null && root !== null){
-                if(lSide.length >= 3){
-                    let lmid = Math.floor(lSide.length / 2)
-                    console.log(lmid) // 1
-                    parent.left = new Node(lmid)
-                    
-                } else if(lSide[0] < lSide[1]){
-                    parent.left = new Node(lSide[0])
-                } else if(lSide[0] > lSide[1]){
-                    parent.right = new Node(rSide[1])
-                } 
-
-                else if(rSide.length >= 3){
-                    let rmid = Math.floor(rSide.length / 2)
-                    parent.left = new Node(rmid)
-                    
-                } else if(rSide[0] < rSide[1]){
-                    parent.left = new Node(rSide[0])
-                } else if(rSide[0] > rSide[1]){
-                    parent.right = new Node(rSide[1])
-                } 
-            }  
+            if 
+            // how to decide which side am I working on
         }
         return root     
     }
