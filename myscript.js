@@ -8,27 +8,27 @@ class Node {
 }
 
 class BinarySearchTree {
-    constructor(nums2){
-        this.nums = nums2
+    constructor(arr){
+        this.arr = arr
         this.root = null
     }
 
-    buildtree(nums2) {
+    buildtree(arr) {
 
-        if (nums2.length <= 0) { return null} 
+        if (arr.length <= 0) { return null} 
 
         let root = this.root
         //console.log(root)  null
-        let mid = Math.floor(nums2.length / 2)
+        let mid = Math.floor(arr.length / 2)
         //console.log(nums[mid])3-just mid and 4-mid nums
 
-        root = new Node(nums2[mid])
+        root = new Node(arr[mid])
         //console.log(root)
 
-        let lSide = nums2.slice(0, mid)
+        let lSide = arr.slice(0, mid)
         console.log(lSide, "left side, unused")
 
-        let rSide = nums2.slice(mid  + 1, nums2.length)
+        let rSide = arr.slice(mid  + 1, arr.length)
         console.log(rSide, "right side unused")
         
         console.log(lSide.length, rSide.length)
@@ -179,7 +179,7 @@ class BinarySearchTree {
 
 
 
-const nums = [1, 2, 3, 4, 5, 6, 7]
+//const nums2 = [1, 2, 3, 4, 5, 6, 7]
 const nums2 = [1, 7, 4, 23, 8, 9, 4, 3, 5, 7, 9, 67, 6345, 324]
 const bst = new BinarySearchTree(nums2)
 //console.log(root.nums)
