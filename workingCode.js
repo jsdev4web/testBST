@@ -40,14 +40,14 @@ class BinarySearchTree{
         let root = this.root
 
         //if there is no root then assign null
-        if (root.value === null){ return root = new Node(value) }
+        if (root.value === null){ 
+            root = new Node(value) 
+            return root
+        }
 
         //if root value === value return else
         if (root.value === value){ return root }
 
-        //this variable = to the root
-        
-        //console.log(currNode)
 
         //makes a new node
         let node = new Node(value)
@@ -68,9 +68,6 @@ class BinarySearchTree{
              }
             }
 
-            //console.log(lastNode)
-
-
                 if (lastNode.value > value){
                   lastNode.left = node
                 }else {
@@ -80,16 +77,21 @@ class BinarySearchTree{
         }
         
 
-        deleteItem(value){ 
+        deleteItem(currNode, value){ 
+            //console.log(currNode)
+            //console.log(currNode)
+            //console.log(value)
 
-            let root = this.root
+            //let root = this.root
 
-            if(root === null) { return root }
 
-            let currNode = root
+            if(currNode === null) { return currNode }
+
+            //currNode = this.root
 
         if (value === currNode.value){
-            //nodes without children
+            console.log("found")
+        
             if (currNode.left === null && currNode.right === null ){
                 return null
             //node with one child
@@ -101,45 +103,89 @@ class BinarySearchTree{
                 // nodes with 2 children
                 //smallest right subtree
 
+                //console.log(currNode.right)
                 let subRight = this.smallRight(currNode.right)
-                console.log(subRight)
+                
                 currNode.value = subRight.value
 
-                currNode.right = this.arr.deleteItem(currNode.right, subRight.value)
+                //deletion happens here
+
+                currNode.right = this.deleteItem(currNode.right, subRight.value)
             return currNode
             }
-
-        }  /*  //recursion
+            
+        }    //recursion
             else if(value < currNode.value){
-                currNode.left = this.deleteItem(value)
+                
+                currNode.left = this.deleteItem(currNode.left, value)
+                console.log(currNode)
                 return currNode
             } else if (value > currNode.value){
-                currNode.right = this.deleteItem(value)
+                currNode.right = this.deleteItem(currNode.right, value)
                 return currNode
-            }*/
-            
-        } 
+            }
+        
+        }
+    
 
         smallRight(node){
-            while(node !== null && node.left !== null){
+            //console.log(node)
+            while(!node.left === null){
                 node = node.left;
-            
+            }
         return node
+    }
+    
+    find(currNode, value){
+        console.log(currNode)
+
+        //if there is no root then assign null
+        if (currNode.value === null){ return null }
+        
+        //if root value === value return else
+        if (currNode.value === value){ return currNode }
+        
+        if(currNode.value === value){
+            console.log("Is code getting HERE!")
+            console.log(value, currNode.value)
+            console.log("found")
+        } else{
+        //check no childs
+        if(currNode.left === null && currNode.right === null){ 
+            return null
+        }
+
+        // check one node
+        if(currNode.left === null){
+            currNode = currNode.right
+            return currNode
+        }else if(currNode.right === null){
+            currNode = currNode.left
+            return currNode
+        }
+
+        console.log("test", currNode.value, value)
+        
+            if(currNode.value > value){
+                console.log("test")
+                return this.find(currNode.left, value)
+            } else if (currNode.right < value) {
+                return this.find(currNode.right, value)
+            } 
         }
     }
-            
+    
 }
 
 const arr = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11]
 //let arr = [1, 7, 4, 23, 8, 9, 4, 3, 5, 7, 9, 67, 6345, 324]
 
 
-//console.log(noDupes)
-
 const bst = new BinarySearchTree(arr)
-console.log(bst.buildtree(arr))
-bst.buildtree(arr)
+//console.log(bst.buildtree(arr))
+//set a variable for the delete function to use
+let test1 = bst.buildtree(arr)
 
 //console.log(bst.insert(11))
-
-console.log(bst.deleteItem(5))
+//console.log(bst.deleteItem(test1, 1))
+console.log(bst.find(test1, 1))
