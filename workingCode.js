@@ -139,53 +139,226 @@ class BinarySearchTree{
     find(currNode, value){
         console.log(currNode)
 
-        //if there is no root then assign null
-        if (currNode.value === null){ return null }
+        if (currNode === null || currNode.value === value) {return currNode}
         
-        //if root value === value return else
-        if (currNode.value === value){ return currNode }
+        if(currNode.value < value)
+            return this.find(currNode.right, value)
         
-        if(currNode.value === value){
-            console.log("Is code getting HERE!")
-            console.log(value, currNode.value)
-            console.log("found")
-        } else{
-        //check no childs
-        if(currNode.left === null && currNode.right === null){ 
-            return null
-        }
-
-        // check one node
-        if(currNode.left === null){
-            currNode = currNode.right
-            return currNode
-        }else if(currNode.right === null){
-            currNode = currNode.left
-            return currNode
-        }
-
-        console.log("test", currNode.value, value)
-        
-            if(currNode.value > value){
-                console.log("test")
-                return this.find(currNode.left, value)
-            } else if (currNode.right < value) {
-                return this.find(currNode.right, value)
-            } 
+        if(currNode.value > value){
+            return this.find(currNode.left, value)
         }
     }
+
+    levelOrder(callback){
+
+        let result = []
+
+        let root = callback
+        if(root == null){ return null}
+
+        console.log(root)
+        let q = []
+        q.push(root)
+        
+        console.log(q)
+
+        //while queue greater 0
+        while(q.length){
+            
+            //how many node in queue per ineration
+            let levelSize = q.length
+            let currentLevel = []
+
+            for (let i = 0; i < levelSize; i++){
+                let currNode = q.shift()
+                currentLevel.push(currNode.value)
+                if (currNode.left){
+                    q.push(currNode.left)
+                }
+
+                if (currNode.right){
+                    q.push(currNode.right)
+                }
+            }
+
+            result.push(currentLevel)
+        
+        }
+
+        return result
+        
+    }
+
+    inorder(callback){
+        let result = []
+        if(callback == null){ return null }
+
+        this.inorder(callback.left);
+        console.log(callback.value)
+        this.inorder(callback.right)
+
+    }
+
+    preorder(callback){
+        let result = []
+        if(callback == null){ return null }
+
+        console.log(callback.value);
+        this.inorder(callback.left);
+        this.inorder(callback.right);
+
+    }
+
+    postorder(callback){
+        let result = []
+        if(callback == null){ return null }
+
+        this.inorder(callback.left,);
+        this.inorder(callback.right);
+        console.log(callback.value);
+
+    }
+
+    height(callback){
+        if(callback == null){ return -1 }
+
+        let leftHeight = this.height(callback.left)
+        let rightHeight = this.height(callback.right)
+
+        return Math.max(leftHeight, rightHeight) + 1;
+    }
     
+    depth(node, value){
+
+        let root = node
+        if(root == null){ return null}
+
+        //console.log(root)
+
+        let q = []
+        q.push(root)
+        let depthCounter = 0
+        
+        while(q.length){
+            
+            //how many node in queue per ineration
+            let levelSize = q.length
+            let currentLevel = []
+            depthCounter++
+
+            for (let i = 0; i < levelSize; i++){
+
+                
+                let currNode = q.shift()
+                if(currNode.value === value ) { 
+                    console.log(depthCounter - 1)
+                    return "found"}
+                currentLevel.push(currNode.value)
+
+
+                if (currNode.left){
+                    q.push(currNode.left)
+                }
+
+                if (currNode.right){
+                    q.push(currNode.right)
+                }
+            }
+        
+        }
+
+        return "Not Found"
+        
+    }
+
+    isBalanced(callback){
+        if(callback == null){ return null }
+
+        let leftHeight = this.height(callback.left)
+        let rightHeight = this.height(callback.right)
+
+        let x = Math.abs(leftHeight - rightHeight === 1)
+
+        console.log(leftHeight)
+        if (leftHeight === rightHeight || leftHeight - rightHeight === x){
+            return "is Balanced"
+        } else {
+            return "not Balanced"
+        }
+    }
+
+    rebalance(callback){
+        if(callback == null){ return null }
+
+
+        let leftHeight = this.height(callback.left)
+        let rightHeight = this.height(callback.right)
+
+        console.log(leftHeight)
+        if (leftHeight === rightHeight){
+            return "is Balanced"
+        } else {
+            console.log("about to balance this")
+
+            let tempArr = []
+            this.inorder(callback.left);
+            tempArr.push(callback.value)
+            this.inorder(callback.right)
+
+            console.log(tempArr)
+
+            let mid = Math.floor(tempArr.length / 2)
+            let root = new Node(tempArr[mid])
+        
+            root.left = this.buildtree(tempArr.slice(0, mid))
+            root.right = this.buildtree(tempArr.slice(mid + 1))
+        
+            this.root = root
+
+            return root
+        }
+
+    }
+   
 }
 
-const arr = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11]
-//let arr = [1, 7, 4, 23, 8, 9, 4, 3, 5, 7, 9, 67, 6345, 324]
+//const arr = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11]
+let arr = [1, 7, 4, 23, 8, 9, 4, 3, 5, 7, 9, 67, 6345, 324]
 
 
 const bst = new BinarySearchTree(arr)
-//console.log(bst.buildtree(arr))
+console.log(bst.buildtree(arr))
 //set a variable for the delete function to use
 let test1 = bst.buildtree(arr)
 
 //console.log(bst.insert(11))
 //console.log(bst.deleteItem(test1, 1))
-console.log(bst.find(test1, 1))
+//console.log(bst.find(test1, 7))
+//console.log(bst.levelOrder(test1))
+
+//console.log(bst.postorder(test1))
+
+//console.log(bst.height(test1))
+
+//console.log(bst.depth(test1,  5 ))
+//console.log(bst.isBalanced(arr))
+
+///console.log(bst.rebalance(arr))
+
+// ******driver code*******
+
+let randomNums = [5, 23, 7, 8, 1, 11, 35, 53, 13, 3, 9, 200, 150, 125, 177, 103]
+console.log(randomNums.length)
+
+const driver = new BinarySearchTree(arr)
+console.log(driver.buildtree(randomNums))
+randomNums = driver.buildtree(randomNums)
+console.log(driver.isBalanced(randomNums))
+//console.log(driver.inorder(randomNums))
+//console.log(driver.preorder(randomNums))
+//console.log(driver.postorder(randomNums))
+
+console.log(driver.isBalanced(randomNums))
+
+console.log(driver.rebalance(randomNums))
+console.log(driver.isBalanced(randomNums))
